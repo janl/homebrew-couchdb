@@ -5,8 +5,9 @@ class Spidermonkey60 < Formula
   homepage "https://developer.mozilla.org/en/SpiderMonkey"
 
   stable do
-    url "http://ftp.mozilla.org/pub/spidermonkey/prereleases/60/pre3/mozjs-60.1.1pre3.tar.bz2"
-    sha256 "60c5a15c59908120af71b87a24f303b0c196c6620a6f52ef3149f4e1a377a373"
+    url "http://ftp.mozilla.org/pub/firefox/releases/60.3.0esr/source/firefox-60.3.0esr.source.tar.xz"
+    sha256 "5566f3181aba169cae4b026cf1ea5e6b477d3e91b575fb3a42b5a33eeb2b5361"
+    version "60.3.0"
     # mozbuild installs symlinks in `make install`
     # https://bugzilla.mozilla.org/show_bug.cgi?id=1296289
     patch :DATA
@@ -27,18 +28,27 @@ class Spidermonkey60 < Formula
     mkdir "brew-build" do
       system "../js/src/configure", "--prefix=#{prefix}",
                                     "--enable-readline",
-                                    "--with-system-nspr",
                                     "--with-system-icu",
                                     "--with-nspr-prefix=#{Formula["nspr"].opt_prefix}",
-                                    "--enable-macos-target=#{MacOS.version}"
-
+                                    "--enable-macos-target=#{MacOS.version}",
+                                    "--disable-ctypes",
+                                    "--disable-ion",
+                                    "--disable-jemalloc",
+                                    "--enable-optimize",
+                                    "--enable-posix-nspr-emulation",
+                                    "--enable-hardening",
+                                    "--with-system-zlib",
+                                    "--with-intl-api"
       # These need to be in separate steps.
+      ENV["CLFAGS"] = "-std=c++14"
+      ENV["LDFAGS"] = "-std=c++14"
+      ENV["CC"] = "clang++"
       system "make"
       system "make", "install"
 
       # libmozglue.dylib is required for both the js shell and embedders
       # https://bugzilla.mozilla.org/show_bug.cgi?id=903764
-      lib.install "mozglue/build/libmozglue.dylib"
+      # lib.install "mozglue/build/libmozglue.dylib"
 
       mv lib/"libjs_static.ajs", lib/"libjs_static.a"
     end
