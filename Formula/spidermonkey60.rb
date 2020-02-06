@@ -1,7 +1,7 @@
 # Based on @yan12125’s: 
 # https://github.com/hanxue/homebrew-versions/blob/6d05cb06d6292be579319b53a9cefa92855b6ab9/spidermonkey45.rb
 class Spidermonkey60 < Formula
-  desc "JavaScript-C Engine, version 60"
+  desc "JavaScript-C++ Engine, version 60"
   homepage "https://developer.mozilla.org/en/SpiderMonkey"
 
   stable do
