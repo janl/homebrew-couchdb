@@ -5,9 +5,9 @@ class Spidermonkey60 < Formula
   homepage "https://developer.mozilla.org/en/SpiderMonkey"
 
   stable do
-    url "http://ftp.mozilla.org/pub/firefox/releases/60.3.0esr/source/firefox-60.3.0esr.source.tar.xz"
-    sha256 "5566f3181aba169cae4b026cf1ea5e6b477d3e91b575fb3a42b5a33eeb2b5361"
-    version "60.3.0"
+    url "https://clients.neighbourhood.ie/couchdb/mozjs-60.9.1.tar.bz2"
+    sha256 "f8b84f64f7a73cca0d7bf9db88fc8302e5d3fe2c2886f3ff4164a5e0b9fbbec8"
+    version "60.9.1"
     # mozbuild installs symlinks in `make install`
     # https://bugzilla.mozilla.org/show_bug.cgi?id=1296289
     patch :DATA
@@ -26,11 +26,14 @@ class Spidermonkey60 < Formula
 
   def install
     mkdir "brew-build" do
+      ENV["CLFAGS"] = "-std=c++14"
+      ENV["CXXFLAGS"] = "-mmacosx-version-min=10.9"
+      ENV["LDFAGS"] = "-std=c++14"
       system "../js/src/configure", "--prefix=#{prefix}",
                                     "--enable-readline",
                                     "--with-system-icu",
                                     "--with-nspr-prefix=#{Formula["nspr"].opt_prefix}",
-                                    "--enable-macos-target=#{MacOS.version}",
+                                    "--enable-macos-target=10.9",
                                     "--disable-ctypes",
                                     "--disable-ion",
                                     "--disable-jemalloc",
@@ -39,10 +42,10 @@ class Spidermonkey60 < Formula
                                     "--enable-hardening",
                                     "--with-system-zlib",
                                     "--with-intl-api"
-      # These need to be in separate steps.
-      ENV["CLFAGS"] = "-std=c++14"
-      ENV["LDFAGS"] = "-std=c++14"
+
+      # awkward hack
       ENV["CC"] = "clang++"
+      # These need to be in separate steps.
       system "make"
       system "make", "install"
 
