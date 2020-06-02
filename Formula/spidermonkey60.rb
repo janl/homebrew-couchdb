@@ -41,7 +41,8 @@ class Spidermonkey60 < Formula
                                     "--enable-posix-nspr-emulation",
                                     "--enable-hardening",
                                     "--with-system-zlib",
-                                    "--with-intl-api"
+                                    "--with-intl-api",
+                                    "--disable-xcode-checks"
 
       # awkward hack
       ENV["CC"] = "clang++"
