@@ -1,6 +1,7 @@
 # Homebrew CouchDB
 
 This TAP includes The Spidermonkey 60 Formula required to build the CouchDB Mac App.
+Configure CouchDB with `./configure --spidermonkey-version=60`
 
 ## How do I install these formulae?
 `brew install janl/couchdb/<formula>`
