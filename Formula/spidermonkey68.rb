@@ -2,12 +2,12 @@
 # Based on @yan12125’s: 
 # https://github.com/hanxue/homebrew-versions/blob/6d05cb06d6292be579319b53a9cefa92855b6ab9/spidermonkey45.rb
 class Spidermonkey68 < Formula
-  desc "JavaScript-C++ Engine, version 60"
+  desc "JavaScript-C++ Engine, version 68"
   homepage "https://developer.mozilla.org/en/SpiderMonkey"
 
   stable do
-    url "http://127.0.0.1:8000/firefox-68.9.0.tgz"
-    sha256 "a24e9d8b46921fefffa97f621c2fa6e76e1634d46c2d5c43c27dbbecd293c218"
+    url "https://archive.mozilla.org/pub/firefox/releases/68.9.0esr/source/firefox-68.9.0esr.source.tar.xz"
+    sha256 "935105e1a8a97d64daffb372690e2b566b5f07641f01470929dbbc82d20d4407"
     version "68.9.0"
     # mozbuild installs symlinks in `make install`
     # https://bugzilla.mozilla.org/show_bug.cgi?id=1296289
